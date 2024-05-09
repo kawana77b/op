@@ -1,5 +1,5 @@
-build:
-	@goreleaser release --snapshot --rm-dist
+publish-dev:
+	@goreleaser release --snapshot --clean
 
 test:
 	go test -v ./...
