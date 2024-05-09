@@ -12,14 +12,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const (
-	APP_VERSION string = "v0.0.1"
-)
+var Version string = "0.0.1"
 
 var rootCmd = &cobra.Command{
-	Use:     "op",
-	Version: APP_VERSION,
-	Short:   "",
+	Use:   "op",
+	Short: "",
 	Long: `Open the file path or web address in the prescribed file explorer or browser
 
 - This command works only on Windows, Mac, and Linux.
@@ -32,6 +29,7 @@ var rootCmd = &cobra.Command{
 }
 
 func Execute() {
+	rootCmd.Version = Version
 	err := rootCmd.Execute()
 	if err != nil {
 		os.Exit(1)
