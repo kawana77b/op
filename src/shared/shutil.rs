@@ -19,7 +19,11 @@ pub fn look_path(cmd: &str) -> Option<String> {
         if path.is_empty() {
             continue;
         }
-        let full_path = std::path::Path::new(path).join(cmd);
+        let cmd_file = match plat.os().to_string().as_str() {
+            "windows" => format!("{}.exe", cmd),
+            _ => cmd.to_string(),
+        };
+        let full_path = std::path::Path::new(path).join(cmd_file);
         if full_path.is_file() {
             let result = full_path.to_string_lossy().to_string();
             return Some(result);
