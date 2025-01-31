@@ -1,0 +1,21 @@
+[package]
+name = "op"
+version = "1.0.1"
+edition = "2021"
+description = "Open the file path or web address in the prescribed file explorer or browser"
+authors = ["shimarisu_121"]
+license = "MIT"
+repository = "https://github.com/kawana77b/op"
+
+[dependencies]
+anyhow = "1.0.95"
+clap = { version = "4.5.27", features = ["derive"] }
+http = "1.2.0"
+regex = "1.11.1"
+strum = "0.26"
+strum_macros = "0.26"
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
