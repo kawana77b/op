@@ -1,0 +1,76 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Release
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Set Environment Variables -- APP_VERSION
+        run: |
+          echo "APP_VERSION=${{ github.ref_name }}" >> "$GITHUB_ENV"
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Setup cross
+        run: cargo install cross
+        if: startsWith(matrix.os, 'ubuntu')
+
+      - name: Test
+        run: |
+          cargo test --release
+          rm -rf target
+
+      # see https://github.com/cross-rs/cross
+      - name: Build By Cross
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          targets=(
+            "x86_64-unknown-linux-gnu"
+            "x86_64-unknown-linux-musl"
+            "aarch64-unknown-linux-musl"
+            "x86_64-pc-windows-gnu"
+          )
+          for target in "${targets[@]}"; do
+            cross build --release --target $target
+          done
+
+      # Build with MacOS images since Mac does not support cross by default
+      - name: Build on macOS
+        if: startsWith(matrix.os, 'macos')
+        run: cargo build --release --target aarch64-apple-darwin
+
+      - name: Archive Artifact To dist Folder
+        run: bash scripts/publish.sh
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        # --------------------------
+        # if: startsWith(github.ref, 'refs/tags/')
+        # --------------------------
+        with:
+          files: |
+            dist/*.zip
+            dist/*.tar.gz
+          generate_release_notes: true
+          draft: true
