@@ -25,7 +25,8 @@ fn resolve_file(value: &str) -> Option<ParamKind> {
     }
     let d = dir?;
     if d.exists() {
-        return Some(ParamKind::FilePath(d.to_owned()));
+        let full_path = std::path::absolute(d).unwrap();
+        return Some(ParamKind::FilePath(full_path.to_owned()));
     }
     None
 }
