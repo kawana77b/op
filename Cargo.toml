@@ -1,11 +1,22 @@
 [package]
-name = "op"
+name = "kawana77b-op"
 version = "1.1.0"
 edition = "2021"
 description = "Open the file path or web address in the prescribed file explorer or browser"
 authors = ["shimarisu_121"]
 license = "MIT"
 repository = "https://github.com/kawana77b/op"
+readme = "README.md"
+keywords = ["open", "explorer"]
+categories = ["command-line-utilities"]
+autotests = false
+rust-version = "1.84.1"
+include = ["/Cargo.toml", "/LICENSE", "/README.md", "/src/**"]
+
+[[bin]]
+name = "op"
+path = "src/main.rs"
+bench = false
 
 [dependencies]
 anyhow = "1.0.95"
