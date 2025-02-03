@@ -19,6 +19,18 @@ Windows, Mac, Linux
 
 **Must be in a desktop environment.**
 
+## install
+
+If you can use the Rust environment, you can safely install it.
+
+```bash
+cargo install kawana77b-op
+```
+
+Or you can get the binary from the Release page.
+
+Disclaimer: When you get binaries from the release page, please note that this tool is not specifically signed and may be detected by security scans such as Windows Defender. I take no responsibility or action for this issue.
+
 ## usage
 
 Open the current directory with the OS prescribed filer:
@@ -31,6 +43,12 @@ Open the specified directory:
 
 ```bash
 op ./foo/bar
+```
+
+Open the URL in the OS-defined browser:
+
+```bash
+op https://www.google.com
 ```
 
 Open the remote repository in the git project in the prescribed browser:
