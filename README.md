@@ -8,10 +8,8 @@ I created it because I wanted to use a common command on multiple platforms when
 
 ## what is this?
 
-This is a very personal tool that I created because I wanted to use the default filer with common cross-platform commands.
-
-I use it often because it is easy. I am satisfied.  
-This is a very personal tool and I do not intend to actively maintain it as FOSS. I will accept some feedback, but may not actively reply. However, you will see it. Any feedback would be greatly appreciated. Folks are free in exchange for not holding me accountable. Please respect the license of the dependency.
+This is a very personal tool that I created because I wanted to use the default filer with common cross-platform commands.  
+I use it often because it is easy. I am satisfied.
 
 ## env
 
